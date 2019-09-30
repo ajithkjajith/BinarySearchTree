@@ -191,6 +191,7 @@ void tree_postorder(Tree *t)
 {
 	assert(t!=NULL);
 	_postorder_(t->root);
+	printf("\n");
 }
 
 /*
@@ -209,11 +210,13 @@ queue_delete(queue,&res);
 temp =(Node *)res.data;
 if(temp->left)
 {
-queue_add(queue,temp->left,&res);
+queue_add(queue,temp->data,&res);
+temp = temp->left;
 }
 if(temp->right)
 {
-queue_add(queue,temp->right,&res);
+queue_add(queue,temp->data,&res);
+temp = temp->right;
 }
 printf("%d \t",temp->data);
 }
@@ -222,18 +225,22 @@ printf("%d \t",temp->data);
 
 static int32_t max_height(Node *n)
 {
-int left_height,right_height = 0;
+int32_t left_height=0;
+int32_t right_height = 0;
+//printf("%d \n",n->data);
 if(n == NULL)
 {
 return 0;
 }
 else
 {
+//printf("%d \n",left_height);
 if(n->left!=NULL){
 left_height = max_height(n->left);
 }
 if(n->right!=NULL){
 right_height = max_height(n->right);
+
 }
 if(left_height>right_height)
 {
@@ -246,12 +253,13 @@ return right_height+1;
 }
 }
 
+
 int32_t tree_height(Tree *t)
 {
 assert(t!=NULL);
 //int left_height,right_height = 0;
-int max = max_height(t->root);
-printf("%d",max);
+int32_t max = max_height(t->root);
+//return max;
 }
 
 
@@ -307,4 +315,39 @@ void tree_descending(Tree *t)
 {
 	assert(t!=NULL);
 	_descending_(t->root);
+}
+
+
+static int32_t _terminals_(Node *n)
+{
+	int32_t count1 = 0;
+	int32_t count2 = 0;
+	
+	if(n==NULL)
+		{return 0;}
+	if (n->left==NULL && n->right==NULL)
+	{
+		return 1;
+	}
+	else{
+	if(n->left!=NULL)
+	{
+	count1 = _terminals_(n->left);
+	}
+	if(n->right!=NULL)
+	{
+	count2 = _terminals_(n->right);
+	}		
+		
+	//count++;
+	return count1+count2;
+}
+}
+
+int32_t terminal_nodes(Tree *t)
+{
+	assert(t!=NULL);
+	int32_t count=0;
+	count = _terminals_(t->root);
+	return count;
 }

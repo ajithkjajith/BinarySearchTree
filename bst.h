@@ -34,6 +34,7 @@ int32_t find_min(Tree *t);
 int32_t find_max(Tree *t);
 void tree_ascending(Tree *t);
 void tree_descending(Tree *t);
+int32_t terminal_nodes(Tree *t);
 
 
 #endif
