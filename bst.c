@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<assert.h>
 #include "bst.h"
+#define DATA_TYPE Node*
 #include "queue.h"
 
 
@@ -82,11 +83,12 @@ return n;
 }
 else if(element>n->data)
 {
-n->right= _delete_(t,n->right,element);
+n->right= _delete_(t,n->right,element); // second iteration
 }
 else if(element<n->data)
 {
-n->left= _delete_(t,n->left,element);
+n->left= _delete_(t,n->left,element);  // first iteration
+printf("yes%d \n",n->data);
 }
 else if(n->right && n->left)
 {
@@ -100,10 +102,12 @@ temp=n;
 if(n->right == NULL)
 {
 n = n->left; //to save null to parent of child having zero leaf
+printf("%d\n",n->data);
 }
 else
 {
 n = n -> right; //to save null to parent of child having zero leaf
+printf("%d\n",n->data);
 }
 free(temp);
 t->count--;
@@ -152,7 +156,7 @@ if(n)
 _inorder_(n->left);
 printf("%d\t",n->data);
 _inorder_(n->right);
-}
+} 
 }
 
 void tree_inorder(Tree *t)
@@ -194,34 +198,34 @@ void tree_postorder(Tree *t)
 	printf("\n");
 }
 
-/*
+
 void tree_levelorder(Tree *t)
 {
-assert(t->root!=NULL);
-Node *temp=t->root;
-Queue Tree_queue = queue_new(t->count);
-Queue *queue = &Tree_queue;
-Queue_Result res;
-queue = queue_add(queue,temp->data,&res);
+	assert(t->root!=NULL);
+	Node *temp;
+	Queue Tree_queue = queue_new(t->count);
+	Queue *queue = &Tree_queue;
+	Queue_Result *res = (Queue_Result*) malloc(sizeof(Queue_Result));
+	queue = queue_add(queue,t->root,res);
+	while(queue->count!=0)
+	{
+		queue_delete(queue,res);
+		temp = res->data;
 
-while(queue->count!=0)
-{
-queue_delete(queue,&res);
-temp =(Node *)res.data;
-if(temp->left)
-{
-queue_add(queue,temp->data,&res);
-temp = temp->left;
+		// having issue accessing res->data
+		if(temp->left!=NULL)
+		{	
+			queue_add(queue,temp->left,res);
+		}
+		if(temp->right!=NULL)
+		{
+			queue_add(queue,temp->right,res);
+		}
+		printf("%d \t",temp->data);
+	}
+	printf("\n");
 }
-if(temp->right)
-{
-queue_add(queue,temp->data,&res);
-temp = temp->right;
-}
-printf("%d \t",temp->data);
-}
-}
-*/
+
 
 static int32_t max_height(Node *n)
 {
@@ -259,7 +263,7 @@ int32_t tree_height(Tree *t)
 assert(t!=NULL);
 //int left_height,right_height = 0;
 int32_t max = max_height(t->root);
-//return max;
+return max;
 }
 
 

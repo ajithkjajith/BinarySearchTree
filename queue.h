@@ -1,6 +1,11 @@
 #ifndef INCLUDED_QUEUE_
 #define INCLUDED_QUEUE_
 #include<stdint.h>
+
+#ifndef DATA_TYPE
+#define DATA_TYPE void*
+#endif
+
 #define MAX_DEPTH 32
 #include<stddef.h>
 #include<stdlib.h>
@@ -18,12 +23,12 @@ struct _queue_
 	int32_t count;
 	int32_t head;
 	int32_t tail;
-	int32_t data[MAX_DEPTH];
+	DATA_TYPE data[MAX_DEPTH];
 };
 
 struct _queueResult_
 {
-    int32_t data;
+    DATA_TYPE data;
     int32_t status;
 };
 
@@ -31,7 +36,7 @@ Queue queue_new(uint32_t size);
 uint32_t queue_full(Queue *q);
 uint32_t queue_empty(Queue *q);
 //Queue* queue_empty(Queue *q);
-Queue* queue_add(Queue *q, int32_t element, Queue_Result *res);
+Queue* queue_add(Queue *q, DATA_TYPE element, Queue_Result *res);
 Queue* queue_delete(Queue *q,Queue_Result *res);
 
 #endif

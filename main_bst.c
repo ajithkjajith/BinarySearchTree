@@ -36,7 +36,9 @@ printf("\nPre-order: ");
 tree_preorder(tree);
 printf("\nPost-order: ");
 tree_postorder(tree);
-
+printf("\nlevel-order: ");
+tree_levelorder(tree);
+printf("\n");
 //3. Add method to find the height of binary search tree
 
 assert(tree_height(tree)==4);
