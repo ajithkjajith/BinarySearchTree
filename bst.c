@@ -88,7 +88,6 @@ n->right= _delete_(t,n->right,element); // second iteration
 else if(element<n->data)
 {
 n->left= _delete_(t,n->left,element);  // first iteration
-printf("yes%d \n",n->data);
 }
 else if(n->right && n->left)
 {
@@ -102,12 +101,10 @@ temp=n;
 if(n->right == NULL)
 {
 n = n->left; //to save null to parent of child having zero leaf
-printf("%d\n",n->data);
 }
 else
 {
 n = n -> right; //to save null to parent of child having zero leaf
-printf("%d\n",n->data);
 }
 free(temp);
 t->count--;
